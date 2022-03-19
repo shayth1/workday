@@ -26,36 +26,50 @@ check_verified();
             </div>
 
             <div class="my-3 p-3 bg-white rounded box-shadow">
-                <h6 class="mb-0">Dummy Text</h6>
-                <sub class="text-muted border-bottom border-gray pb-2 mb-0">[use for your application purpose]</sub>
+                <h6 class="mb-0">My Project's</h6>
+                <sub class="text-muted border-bottom border-gray pb-2 mb-0">[Projects created by
+                    <?php echo $_SESSION['username']; ?>]</sub>
 
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                
+                <table class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $owner = $_SESSION['id'];
+                        $query = "SELECT * FROM project WHERE project_owner = '$owner'";
+                        $stmt = mysqli_stmt_init($conn);
+                        if (!mysqli_stmt_prepare($stmt, $query)) {
+                            die('ERROR IN CONNECTION');
+                        } else {
+                            mysqli_stmt_execute($stmt);
+                            $result = mysqli_stmt_get_result($stmt);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '
+                        <tr>
+                            <td><a href="../project-profile/index.php?id=' . $row['project_id'] . '"><img src="../assets/uploads/project/' . $row['project_logo'] . '" width="32" height="32"
+                            class="rounded-circle my-n1" alt="Avatar"></a></td>
+                            <td>' . $row['project_name'] . '</td>
+                            <td>' . $row['project_sdate'] . '</td>
+                            <td>' . $row['project_edate'] . '</td>
+                            <td>' . $row['project_status'] . '</td>
+                        </tr>';
+                            }
+                        }
+
+
+                        ?>
+                    </tbody>
+                </table>
+
                 <small class="d-block text-right mt-3">
-                    <a href="#">All updates</a>
+                    <a class="btn btn-primary" href="../new-project">New Project</a>
                 </small>
             </div>
 
@@ -66,8 +80,8 @@ check_verified();
 
 
 
-    <?php
+<?php
 
-    include '../assets/layouts/footer.php'
+include '../assets/layouts/footer.php'
 
-    ?>
+?>
