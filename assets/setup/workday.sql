@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2022 at 07:38 AM
+-- Generation Time: Mar 23, 2022 at 08:36 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -42,7 +42,9 @@ CREATE TABLE `auth_tokens` (
 --
 
 INSERT INTO `auth_tokens` (`id`, `user_email`, `auth_type`, `selector`, `token`, `created_at`, `expires_at`) VALUES
-(63, 'admin@admin.com', 'remember_me', '2981bb4e67b5db5f', '$2y$10$LWYHStKP.JMBf.GMym9cWesZ64DxAKlLxDowNdw7jyRA6TVjDp30q', '2022-03-19 05:16:04', '2022-03-29 05:16:04');
+(63, 'admin@admin.com', 'remember_me', '2981bb4e67b5db5f', '$2y$10$LWYHStKP.JMBf.GMym9cWesZ64DxAKlLxDowNdw7jyRA6TVjDp30q', '2022-03-19 05:16:04', '2022-03-29 05:16:04'),
+(64, 'shayth@shayth.com', 'account_verify', 'b8864e3fc97d9d9a', '$2y$10$J.C.WVA1zFTGazNyPip1Q.8uSe50ylX/s5pJ.R7IrEa1yyW5gYV76', '2022-03-23 17:27:15', '2022-03-23 18:27:15'),
+(65, 'shayth@shayth.com', 'remember_me', 'e3cd7f07e594480e', '$2y$10$XUZTQV.kTE9FgqGeFrTdAuCQtUisv4AzgMd3YgrOI4LgeLrEoCOre', '2022-03-23 17:27:22', '2022-04-02 16:27:22');
 
 -- --------------------------------------------------------
 
@@ -83,18 +85,19 @@ CREATE TABLE `task` (
   `assign_to` int(11) DEFAULT NULL,
   `task_discription` longtext NOT NULL,
   `priority` varchar(255) NOT NULL,
-  `task_status` varchar(255) NOT NULL
+  `task_status` varchar(255) NOT NULL,
+  `task_due` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`task_id`, `task_project`, `task_name`, `task_cdate`, `task_estimated`, `task_actual`, `assign_to`, `task_discription`, `priority`, `task_status`) VALUES
-(1, 1, 'Task One', '2019-03-22', 24, 0, 0, 'discription', 'Medium', 'New'),
-(2, 1, '', '0000-00-00', 0, NULL, NULL, 'discription', 'Urgent', 'New'),
-(3, 1, 'Task 2', '0000-00-00', 1.5, NULL, NULL, 'discription', 'Low', 'New'),
-(4, 1, 'Task 4', '2022-03-19', 3.5, NULL, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut aliquid ea eligendi fuga aspernatur dolorum optio molestias, incidunt iure alias voluptatum quidem odio provident, a quam rem neque recusandae deleniti.', 'Urgent', 'New');
+INSERT INTO `task` (`task_id`, `task_project`, `task_name`, `task_cdate`, `task_estimated`, `task_actual`, `assign_to`, `task_discription`, `priority`, `task_status`, `task_due`) VALUES
+(1, 1, 'Task One', '2019-03-22', 24, 0, 31, 'discription', 'Medium', 'New', NULL),
+(2, 1, '', '0000-00-00', 0, NULL, NULL, 'discription', 'Urgent', 'New', NULL),
+(3, 1, 'Task 2', '0000-00-00', 1.5, NULL, NULL, 'discription', 'Low', 'New', NULL),
+(4, 1, 'Task 4', '2022-03-19', 3.5, NULL, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut aliquid ea eligendi fuga aspernatur dolorum optio molestias, incidunt iure alias voluptatum quidem odio provident, a quam rem neque recusandae deleniti.', 'Urgent', 'New', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,7 +128,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `gender`, `headline`, `bio`, `profile_image`, `verified_at`, `created_at`, `updated_at`, `deleted_at`, `last_login_at`) VALUES
-(31, 'admin', 'admin@admin.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'Supahot', 'Soverysupahot', 'm', '0799978266', 'This is the bio of a supa hot user. Now i will say needless stuff to make this longer so this looks like a bio and not anything other than a bio.', '_defaultUser.png', '2022-03-09 11:41:52', '2022-03-18 10:25:25', '2022-03-19 05:16:03', NULL, '2022-03-19 05:16:03');
+(31, 'admin', 'admin@admin.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'Supahot', 'Soverysupahot', 'm', '0799978266', 'This is the bio of a supa hot user. Now i will say needless stuff to make this longer so this looks like a bio and not anything other than a bio.', '_defaultUser.png', '2022-03-09 11:41:52', '2022-03-18 10:25:25', '2022-03-19 05:16:03', NULL, '2022-03-19 05:16:03'),
+(32, 'shayth', 'shayth@shayth.com', '$2y$10$jnRMeOqpCa20aY1Xrkq8luoZx116hFxskbuRKahWWx4nxbD4XUdpW', 'shayth', 'bani baker', 'm', '0799978266', 'React, .Net, C#, ABAP, SAP,Angular', '_defaultUser.png', '2022-03-23 17:27:15', '2022-03-23 17:27:15', '2022-03-23 17:27:22', NULL, '2022-03-23 17:27:22');
 
 --
 -- Indexes for dumped tables
@@ -167,7 +171,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `auth_tokens`
 --
 ALTER TABLE `auth_tokens`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `project`
@@ -185,7 +189,7 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
