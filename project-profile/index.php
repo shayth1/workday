@@ -1,5 +1,4 @@
 <?php
-
 define('TITLE', "Project");
 include '../assets/layouts/header.php';
 if (isset($_GET['id'])) {
@@ -16,7 +15,6 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     $result = mysqli_stmt_get_result($stmt);
     $project = mysqli_fetch_assoc($result);
 }
-
 ?>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
