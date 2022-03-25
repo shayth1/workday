@@ -21,7 +21,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 <div class="container">
     <div class="row">
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
             <div class="card bg-pattern">
                 <div class="card-body">
                     <div class="float-right">
@@ -33,46 +33,39 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
             <div class="card bg-pattern">
                 <div class="card-body">
                     <div class="float-right">
-                        <i class="fa fa-users text-primary h4 ml-3"></i>
+                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-success" type="button"><i
+                                class="fa fa-plus"></i></button>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">18</h5>
-                    <p class="text-muted mb-0">Mermbers</p>
+
+                    <h5 class="font-size-20 mt-0 pt-1">New
+                        <p class="text-muted mb-0">Create new task</p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
             <div class="card bg-pattern">
                 <div class="card-body">
                     <div class="float-right">
                         <i class="fa fa-file text-primary h4 ml-3"></i>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">06</h5>
+                    <h5 class="font-size-20 mt-0 pt-1">
+
+                        <?php
+                        $query1 = mysqli_query($conn, "SELECT count(*) AS 'countT' FROM task WHERE task_project = $project[project_id];");
+                        $row = mysqli_fetch_array($query1);
+                        $count_S = $row['countT'];
+                        echo $row["countT"]; ?>
+
+                    </h5>
                     <p class="text-muted mb-0">Tasks</p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card">
-                <div class="card-body">
 
-                    <div class="form-group mb-0">
-                        <label>Create new task</label>
-                        <div class="input-group mb-0">
-
-                            <div class="input-group-append">
-                                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-success"
-                                    type="button"><i class="fa fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
     <!-- end row -->
 
@@ -169,6 +162,10 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task_etime" class="col-form-label">Due Date:</label>
+                        <input type="date" class="form-control" name="task_due">
                     </div>
                     <div class="form-group">
                         <label for="task_etime" class="col-form-label">Estimated Effort (Hours):</label>

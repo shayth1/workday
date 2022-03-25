@@ -111,7 +111,7 @@ function xss_filter($data)
                 </div>
 
                 <div class="form-group">
-                    <label for="bio">Profile Details</label>
+                    <label for="bio">My Skills</label>
                     <textarea type="text" id="bio" name="bio" class="form-control"
                         placeholder="Tell us about yourself..."><?php echo xss_filter($_SESSION['bio']); ?></textarea>
                 </div>

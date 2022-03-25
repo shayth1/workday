@@ -2,38 +2,62 @@
 
 define('TITLE', "Home");
 include '../assets/layouts/header.php';
-check_verified();
+
 
 ?>
 
 
-<main role="main" class="container">
-
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
     <div class="row">
-        <div class="col-sm-3">
-
-            <?php include('../assets/layouts/profile-card.php'); ?>
-
-        </div>
-        <div class="col-sm-9">
-
-            <div class="d-flex align-items-center p-3 mt-5 mb-3 text-white-50 bg-purple rounded box-shadow">
-                <img class="mr-3" src="../assets/images/logonotextwhite.png" alt="" width="48" height="48">
-                <div class="lh-100">
-                    <h6 class="mb-0 text-white lh-100">Admin Dashboard</h6>
-                    <small>[Development in Progress]</small>
+        <?php
+        $query = "SELECT * FROM users";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $query)) {
+            die('ERROR IN CONNECTION');
+        } else {
+            mysqli_stmt_execute($stmt);
+            $result1 = mysqli_stmt_get_result($stmt);
+            while ($row = mysqli_fetch_assoc($result1)) {
+                echo '
+        <div class="col-md-4">
+            <div class="card user-card">
+                <div class="card-header">
+                    <h5>Profile</h5>
+                </div>
+                <div class="card-block">
+                    <div class="user-image">
+                        <img src="../assets/uploads/users/' . $row['profile_image'] . '" class="img-radius"
+                            alt="User-Profile-Image">
+                    </div>
+                    <h6 class="f-w-600 m-t-25 m-b-10">' . $row['first_name'] .  '' . $row['last_name'] . '</h6>
+                   
+                
+                    <p class="m-t-15 text-muted">' . $row['bio'] . '</p>
+                    <hr>
+                    <div class="row justify-content-center user-social-link">
+                        <div class="col-auto"><a href="callto:' . $row['headline'] . '"><i class="fa fa-phone text-facebook"></i></a></div>
+                        <div class="col-auto"><a href="mailto:' . $row['email'] . '"><i class="fa fa-envelope-o text-twitter"></i></a></div>
+                        <div class="col-auto"><a href="../user-profile/index.php?id=' . $row['id'] . '"><i class="fa fa-search-plus text-dribbble"></i></a></div>
+                    </div>
                 </div>
             </div>
+        </div>';
+            }
+        }
+        ?>
 
-        </div>
+
+
+
     </div>
-</main>
+</div>
 
 
 
 
-    <?php
+<?php
 
-    include '../assets/layouts/footer.php'
+include '../assets/layouts/footer.php'
 
-    ?>
+?>

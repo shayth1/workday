@@ -53,13 +53,16 @@
                         </li>
 
                         <?php } else { ?>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="../dashboard">Dashboard</a>
+                            <a class="nav-link" href="../profile">My Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../home">Home</a>
+                            <a class="nav-link" href="../dashboard">Users</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../home">My Projects</a>
                         </li>
 
 

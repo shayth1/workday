@@ -31,13 +31,13 @@ if (!mysqli_stmt_prepare($stmt2, $sql2)) {
     $project = mysqli_fetch_assoc($result2);
 }
 // display (CSS) controls for assign to based on project owner
-if ($project['project_owner'] == $_SESSION['id']) {
+if ($project['project_owner'] === $_SESSION['id']) {
     $display = "block";
 } else {
     $display = "none";
 }
 // display (CSS) controls for Task status based on task owner
-if ($task['assign_to'] == $_SESSION['id']) {
+if ($task['assign_to'] === $_SESSION['id']) {
     $display2 = "block";
 } else {
     $display2 = "none";
@@ -50,14 +50,15 @@ $developer = $task['assign_to'];
 
 ?>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
 <div class="content">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="card-box task-detail">
                     <div class="media mt-0 m-b-30"><img class="d-flex mr-3 rounded-circle" alt="64x64"
-                            src="https://bootdey.com/img/Content/avatar/avatar2.png" style="width: 48px; height: 48px;">
+                            src="../assets/uploads/project/<?php echo $project['project_logo']; ?>"
+                            style="width: 48px; height: 48px;">
                         <div class="media-body">
                             <h5 class="media-heading mb-0 mt-0"><?php echo $task['task_name']; ?></h5><span
                                 class="badge badge-danger"><?php echo $task['priority']; ?></span>
@@ -112,7 +113,7 @@ $developer = $task['assign_to'];
                                 mysqli_stmt_execute($stmt);
                                 $result1 = mysqli_stmt_get_result($stmt);
                                 while ($row = mysqli_fetch_assoc($result1)) {
-                                    echo '<a href="#"><img class="rounded-circle thumb-sm"
+                                    echo '<a href="../user-profile/index.php?id=' . $row['id'] . '"><img class="rounded-circle thumb-sm"
                                 src="../assets/uploads/users/' . $row['profile_image'] . '"> ' . $row['first_name'] . ' ' . $row['last_name'] . '</a>';
                                 }
                             }
@@ -121,28 +122,18 @@ $developer = $task['assign_to'];
 
                         </div>
                     </div>
-                    <div class="attached-files mt-4">
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="text-right mt-4">
-                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-                                    <button type="button" class="btn btn-light waves-effect">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- end col -->
 
 
 
-            <div class="col-md-4" style="display: <?php echo $display; ?>;">
-                <div class="card-box">
+            <div class="col-md-4">
+                <div class="card-box" style="display: <?php echo $display; ?>">
                     <h4 class="header-title m-b-30">Assign to</h4>
                     <div>
-                        <div class="media m-b-20">
+                        <div>
                             <form action="includes/assignTask.php" method="POST">
                                 <div class="media-body col-md-12">
                                     <label for="subject">Select User</label>
@@ -160,6 +151,8 @@ $developer = $task['assign_to'];
                                     </select>
                                     <input style="display: none;" type="text" name="task_id"
                                         value="<?php echo $task['task_id']; ?>">
+                                    <input style="display: none;" type="text" name="project_id"
+                                        value="<?php echo $project['project_id']; ?>">
                                 </div>
                                 <div class="text-right mt-4">
                                     <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
@@ -172,25 +165,50 @@ $developer = $task['assign_to'];
                 <div class="card-box" style="display: <?php echo $display2; ?>;">
                     <h4 class="header-title m-b-30">Status</h4>
                     <div>
-                        <div class="media m-b-20">
+                        <div class="">
+                            <form action="includes/changeStatus.php" method="POST" class="row-md-12">
+                                <div class="media-body">
+                                    <label for="subject"><?php echo $task['task_status']; ?></label>
+                                    <select name="status" class="form-control" required>
+                                        <option value="on-Hold">on-Hold</option>
+                                        <option value="in-Progress">in-Progress</option>
+                                        <option value="Testing">Testing</option>
+                                        <option value="Test Fail">Test Fail</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                    <input style="display: none;" type="text" name="task_id"
+                                        value="<?php echo $task['task_id']; ?>">
+                                </div>
 
-                            <div class="media-body">
-                                <label for="subject">Select Subject</label>
-                                <select id="subject" name="subjecte" class="form-control" required>
-                                    </option>
-                                    <?php while ($row = mysqli_fetch_array($getUser)) : ?>
-                                    <option value="
-                                    <?php echo $row[4];
-                                        echo " ";
-                                        echo $row[5]; ?>">
-                                        <?php echo $row[4];
-                                            echo " ";
-                                            echo $row[5]; ?>
-                                    </option>
-                                    <?php endwhile; ?>
-                                </select>
+                                <input style="display: none;" type="text" name="project_id"
+                                    value="<?php echo $project['project_id']; ?>">
+                                <div class="text-right mt-4">
+                                    <button type="submit" class="btn btn-primary  waves-light">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                            </div>
+                <div class="card-box" style="display: <?php echo $display2; ?>;">
+                    <h4 class="header-title m-b-30"></h4>
+                    <div>
+                        <div class="">
+                            <form action="includes/changeActualEffort.php" method="POST" class="row-md-12">
+                                <div class="media-body">
+                                    <label for="subject">Actual Effort</label>
+                                    <input type="number" class="form-control" name="task_actual"
+                                        value="<?php echo $task['task_actual']; ?>">
+                                    <input style="display: none;" type="text" name="task_id"
+                                        value="<?php echo $task['task_id']; ?>">
+                                </div>
+
+                                <input style="display: none;" type="text" name="project_id"
+                                    value="<?php echo $project['project_id']; ?>">
+                                <div class="text-right mt-4">
+                                    <button type="submit" class="btn btn-primary  waves-light">Update</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -200,24 +218,38 @@ $developer = $task['assign_to'];
 
 
             <!-- end col -->
-            <div class="col-lg-8">
+            <div class="col-md-8">
                 <div class="card-box">
                     <h4 class="header-title m-b-30">Comments</h4>
                     <div>
-                        <div class="media m-b-20">
+                        <?php
+                        $query = "SELECT c.comment_task, c.comment_text, c.comment_user, u.first_name, u.last_name, u.profile_image, u.id 
+                        FROM comment c INNER JOIN users u ON c.comment_user = u.id AND c.comment_task =  $task[task_id]";
+                        $stmt = mysqli_stmt_init($conn);
+                        if (!mysqli_stmt_prepare($stmt, $query)) {
+                            die('ERROR IN CONNECTION');
+                        } else {
+                            mysqli_stmt_execute($stmt);
+                            $result1 = mysqli_stmt_get_result($stmt);
+                            while ($row = mysqli_fetch_assoc($result1)) {
+                                echo '
+                                <div class="media m-b-20">
                             <div class="d-flex mr-3">
-                                <a href="#"><img class="media-object rounded-circle thumb-sm" alt="64x64"
-                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+                                <a href="../user-profile/index.php?id=' . $row['id'] . '"><img class="media-object rounded-circle thumb-sm" alt="64x64"
+                                        src="../assets/uploads/users/' . $row['profile_image'] . '"></a>
                             </div>
                             <div class="media-body">
-                                <h5 class="mt-0">Maxine Kennedy</h5>
-                                <p class="font-13 text-muted mb-0"><a href="" class="text-dark">@Michael</a> Cras sit
-                                    amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin
-                                    commodo. Cras purus odio.</p>
+                                <h5 class="mt-0">' . $row['first_name'] .  ' ' . $row['last_name'] . '</h5>
+                                <p class="font-13 text-muted mb-0"> ' . $row['comment_text'] . '</p>
                             </div>
                         </div>
+                        <br>
+                              
 
-
+                                ';
+                            }
+                        }
+                        ?>
 
                         <div class="media m-b-20">
                             <div class="d-flex mr-3">
@@ -225,11 +257,20 @@ $developer = $task['assign_to'];
                                         src="../assets/uploads/users/<?php echo $_SESSION['profile_image']; ?>"></a>
                             </div>
                             <div class="media-body">
-                                <input type="text" class="form-control input-sm" placeholder="Some text value...">
-                                <div class="mt-2 text-right">
-                                    <button type="submit"
-                                        class="btn btn-sm btn-custom waves-effect waves-light">Send</button>
-                                </div>
+                                <form action="includes/addComment.php" method="POST">
+                                    <input type="text" name="comment_text" class="form-control input-sm"
+                                        placeholder="Enter your comment...">
+                                    <input style="display: none;" type="text" name="comment_user"
+                                        value="<?php echo $_SESSION['id']; ?>">
+                                    <input style="display: none;" type="text" name="comment_task"
+                                        value="<?php echo $task['task_id']; ?>">
+                                    <input style="display: none;" type="text" name="comment_project"
+                                        value="<?php echo $project['project_id']; ?>">
+                                    <div class="mt-2 text-right">
+                                        <button type="submit"
+                                            class="btn btn-sm btn-custom waves-effect waves-light">Post</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
