@@ -48,6 +48,11 @@ $getUser = mysqli_query($conn, $user);
 
 $developer = $task['assign_to'];
 
+if ($task['assign_to'] == $_SESSION['id'] && $task['task_estimated'] == 0) {
+    $link = "http://localhost/workday/project-profile/taskEst.php?tid=$taskid";
+    echo '<script>window.location.replace("' . $link . '");</script>';
+}
+
 ?>
 
 <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
