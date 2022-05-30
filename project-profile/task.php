@@ -10,7 +10,7 @@ if (isset($_GET['tid'])) {
 } else {
     header("Location:../");
 }
-// Add a SQL query to get task based in task id that we got from URL
+// Add a SQL query to gett w task based in task id thaT got from URL
 $sql = "SELECT * FROM task WHERE task_id = '$taskid'";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -220,7 +220,7 @@ $developer = $task['assign_to'];
             <!-- end col -->
             <div class="col-md-8">
                 <div class="card-box">
-                    <h4 class="header-title m-b-30">Comments</h4>
+                    <h4 class="header-title m-b-30">Reports</h4>
                     <div>
                         <?php
                         $query = "SELECT c.comment_task, c.comment_text, c.comment_user, u.first_name, u.last_name, u.profile_image, u.id 

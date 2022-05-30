@@ -96,7 +96,7 @@ include '../assets/layouts/header.php';
                                 <th scope="col">Status</th>
                                 <th scope="col">Estimated effort</th>
                                 <th scope="col">Created at</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">SHOW</th>
                             </tr>
                         </thead>
                         <tbody>

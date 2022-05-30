@@ -8,7 +8,7 @@ include '../assets/layouts/header.php';
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4"> 
 
         </div>
         <div class="col-lg-4">
@@ -46,7 +46,7 @@ include '../assets/layouts/header.php';
                 <div class="form-group">
 
                     <input type="text" id="username" name="project_name" class="form-control" placeholder="Project Name"
-                        required autofocus>
+                  autocomplete="off"      required autofocus>
 
                 </div>
 

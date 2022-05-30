@@ -4,9 +4,9 @@ require '../../assets/setup/db.inc.php';
 $task_id = $_POST['task_id'];
 $status = $_POST['status'];
 $project_id = $_POST['project_id'];
-echo $task_id, $user;
+
 $sql = "UPDATE task SET task_status= '$status' WHERE task_id =$task_id";
-echo $sql;
+
 $assign = mysqli_query($conn, $sql);
 
 if ($assign) {

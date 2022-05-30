@@ -2,7 +2,7 @@
 
 define('TITLE', "Home");
 include '../assets/layouts/header.php';
-check_verified();
+
 
 ?>
 
@@ -20,7 +20,7 @@ check_verified();
             <div class="d-flex align-items-center p-3 mt-5 mb-3 text-white-50 bg-purple rounded box-shadow">
                 <img class="mr-3" src="../assets/images/logonotextwhite.png" alt="" width="48" height="48">
                 <div class="lh-100">
-                    <h6 class="mb-0 text-white lh-100">Hey there, <?php echo $_SESSION['username']; ?></h6>
+                    <h6 class="mb-0 text-white lh-100">Hey there, <?php echo $_SESSION['first_name']; ?></h6>
                     <small>Last logged in at <?php echo date("m-d-Y", strtotime($_SESSION['last_login_at'])); ?></small>
                 </div>
             </div>
