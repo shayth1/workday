@@ -37,8 +37,15 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
             <div class="card bg-pattern">
                 <div class="card-body">
                     <div class="float-right">
-                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-success" type="button"><i
+                        <?php
+                        if ($project['project_owner'] === $_SESSION['id']) {
+                            echo '
+                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-success" type="button"><i
                                 class="fa fa-plus"></i></button>
+                            ';
+                        }
+                        ?>
+
                     </div>
 
                     <h5 class="font-size-20 mt-0 pt-1">New
@@ -136,8 +143,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     <!-- end row -->
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,8 +156,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
                 <form action="includes/addTask.php" method="POST">
                     <div class="form-group">
                         <label for="task_name" class="col-form-label">Task Name: </label>
-                        <input style="display: none;" type="text" value="<?php echo $project['project_id']; ?>"
-                            name="project_id">
+                        <input style="display: none;" type="text" value="<?php echo $project['project_id']; ?>" name="project_id">
                         <input type="text" class="form-control" name="task_name">
                     </div>
                     <div class="form-group">
@@ -167,10 +172,10 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
                         <label for="task_etime" class="col-form-label">Due Date:</label>
                         <input type="date" class="form-control" name="task_due">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="task_etime" class="col-form-label">Estimated Effort (Hours):</label>
                         <input type="text" class="form-control" name="task_etime">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Discription:</label>
                         <textarea class="form-control" name="discription"></textarea>

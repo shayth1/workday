@@ -2,6 +2,9 @@
 
 define('TITLE', "New Project");
 include '../assets/layouts/header.php';
+// get users as a list from DB
+$user = "SELECT * FROM users";
+$getUser = mysqli_query($conn, $user);
 
 ?>
 
@@ -50,9 +53,22 @@ include '../assets/layouts/header.php';
 
                 </div>
 
-                <div class="form-group" style="display: none;">
+                <div class="form-group">
+                    <label for="subject">Project Manager</label>
+                    <select id="subject" name="project_owner" class="form-control" required>
+                        </option>
+                        <?php while ($row = mysqli_fetch_array($getUser)) : ?>
+                        <option value="
+                                    <?php echo $row[0];
+                                    ?>">
+                            <?php echo $row[4];
+                                echo " ";
+                                echo $row[5]; ?>
+                        </option>
+                        <?php endwhile; ?>
+                    </select>
 
-                    <input type="text" name="project_owner" class="form-control" value="<?php echo $_SESSION['id'] ?>">
+
 
                 </div>
 

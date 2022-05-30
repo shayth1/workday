@@ -43,7 +43,12 @@ include '../assets/layouts/header.php';
                     <tbody>
                         <?php
                         $owner = $_SESSION['id'];
-                        $query = "SELECT * FROM project WHERE project_owner = '$owner'";
+                        if ($_SESSION['user_level'] === 1) {
+                            $query = "SELECT * FROM project";
+                        } else {
+                            $query = "SELECT * FROM project WHERE project_owner = '$owner'";
+                        }
+
                         $stmt = mysqli_stmt_init($conn);
                         if (!mysqli_stmt_prepare($stmt, $query)) {
                             die('ERROR IN CONNECTION');
@@ -67,10 +72,16 @@ include '../assets/layouts/header.php';
                         ?>
                     </tbody>
                 </table>
+                <?php
+                if ($_SESSION['user_level'] === 1) {
+                    echo '
+                    <small class="d-block text-right mt-3">
+                        <a class="btn btn-primary" href="../new-project">New Project</a>
+                    </small>';
+                }
 
-                <small class="d-block text-right mt-3">
-                    <a class="btn btn-primary" href="../new-project">New Project</a>
-                </small>
+                ?>
+
             </div>
 
         </div>
