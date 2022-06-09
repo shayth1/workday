@@ -122,6 +122,7 @@ else {
                     }
 
                     $_SESSION['id'] = $row['id'];
+                    $_SESSION['user_level'] = $row['user_level'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['email'] = $row['email'];
                     $_SESSION['first_name'] = $row['first_name'];

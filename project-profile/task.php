@@ -1,3 +1,5 @@
+
+   
 <?php
 // hide all notice and errors
 // error_reporting(E_ALL ^ E_NOTICE);
@@ -148,9 +150,9 @@ if ($task['assign_to'] == $_SESSION['id'] && $task['task_estimated'] == 0) {
                                         <option value="
                                     <?php echo $row[0];
                                     ?>">
-                                            <?php echo $row[4];
+                                            <?php echo $row[5];
                                                 echo " ";
-                                                echo $row[5]; ?>
+                                                echo $row[6]; ?>
                                         </option>
                                         <?php endwhile; ?>
                                     </select>
@@ -250,7 +252,6 @@ if ($task['assign_to'] == $_SESSION['id'] && $task['task_estimated'] == 0) {
                         </div>
                         <br>
                               
-
                                 ';
                             }
                         }
