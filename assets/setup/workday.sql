@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2022 at 05:45 PM
+-- Generation Time: Jun 09, 2022 at 08:51 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -42,7 +42,8 @@ CREATE TABLE `auth_tokens` (
 --
 
 INSERT INTO `auth_tokens` (`id`, `user_email`, `auth_type`, `selector`, `token`, `created_at`, `expires_at`) VALUES
-(66, 'fatima@fatima.com', 'account_verify', 'a2b52a706e00e76d', '$2y$10$6S3Tp/h0ac1Cj1yJysPEI.KyA/saHxPZukfq778qMKRCJBlmPQyCu', '2022-05-28 18:51:34', '2022-05-28 19:51:34');
+(66, 'fatima@fatima.com', 'account_verify', 'a2b52a706e00e76d', '$2y$10$6S3Tp/h0ac1Cj1yJysPEI.KyA/saHxPZukfq778qMKRCJBlmPQyCu', '2022-05-28 18:51:34', '2022-05-28 19:51:34'),
+(71, 'admin@admin.com', 'remember_me', '1442f837d75a24d2', '$2y$10$h7Quu9MJSN6IWA/xqO/i0u.K7CrCm4v.EyNRfyHN319DxCNmuth1m', '2022-06-09 18:45:57', '2022-06-19 17:45:57');
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,7 @@ CREATE TABLE `project` (
 INSERT INTO `project` (`project_id`, `project_name`, `project_sdate`, `project_edate`, `project_owner`, `project_status`, `project_logo`) VALUES
 (2, 'liiinaa', '2022-05-27', '2022-05-30', 31, 'Active', 'project.png'),
 (3, 'test', '2022-05-28', '2022-05-30', 33, 'Active', 'project.png'),
-(4, 'testing', '2022-05-28', '2022-05-30', 31, 'Active', 'project.png'),
+(4, 'testing', '2022-05-28', '2022-05-30', 3, 'Active', 'project.png'),
 (5, 'yaqout', '2022-05-28', '2022-05-31', 31, 'Active', 'project.png'),
 (6, 'fatima', '2022-05-29', '2022-05-31', 31, 'Active', 'project.png'),
 (7, 'YAQOOT TEST', '2022-05-30', '2022-06-11', 31, 'Active', 'project.png'),
@@ -124,7 +125,7 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`task_id`, `task_project`, `task_name`, `task_cdate`, `task_estimated`, `task_actual`, `assign_to`, `task_discription`, `priority`, `task_status`, `task_due`) VALUES
-(1, 1, 'Task One', '2019-03-22', 24, 7, 31, 'discription', 'Medium', 'in-Progress', NULL),
+(1, 1, 'Task One', '2019-03-22', 24, 7, 31, 'discription', 'Medium', 'Testing', NULL),
 (3, 1, 'Task 2', '0000-00-00', 1.5, NULL, NULL, 'discription', 'Low', 'New', NULL),
 (4, 1, 'Task 4', '2022-03-19', 3.5, NULL, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut aliquid ea eligendi fuga aspernatur dolorum optio molestias, incidunt iure alias voluptatum quidem odio provident, a quam rem neque recusandae deleniti.', 'Urgent', 'New', NULL),
 (6, 1, 'fatima', '2022-05-28', 24, 20, 31, 'test', 'Medium', 'New', '2022-05-28'),
@@ -133,7 +134,9 @@ INSERT INTO `task` (`task_id`, `task_project`, `task_name`, `task_cdate`, `task_
 (9, 6, '', '2022-05-28', 72, NULL, NULL, '', 'Urgent', 'New', '2022-05-25'),
 (10, 5, 'login page', '2022-05-28', 72, 70, 32, '', 'Urgent', 'New', '2022-05-25'),
 (11, 5, 'front end ', '2022-05-28', 0, 0, 32, 'add colors ', 'High', 'New', '2022-06-06'),
-(12, 7, 'software test', '2022-05-30', 29, NULL, 32, 'design homepage', 'Medium', 'Testing', '2022-05-30');
+(12, 7, 'software test', '2022-05-30', 29, NULL, 32, 'design homepage', 'Medium', 'Testing', '2022-05-30'),
+(13, 9, 'asdf', '2022-05-30', 0, NULL, 32, 'erwre', 'Urgent', 'New', '2022-05-25'),
+(14, 9, 'ahhsjshjbd', '2022-06-09', 0, NULL, 31, 'task22', 'Medium', 'New', '2022-06-10');
 
 -- --------------------------------------------------------
 
@@ -144,6 +147,7 @@ INSERT INTO `task` (`task_id`, `task_project`, `task_name`, `task_cdate`, `task_
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `username` varchar(255) NOT NULL,
+  `user_level` int(11) NOT NULL DEFAULT 0,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
@@ -163,10 +167,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `gender`, `headline`, `bio`, `profile_image`, `verified_at`, `created_at`, `updated_at`, `deleted_at`, `last_login_at`) VALUES
-(31, 'lina', 'admin@admin.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'lina', 'hamdan', 'f', '0796104250', 'React, .Net, C#, ABAP, SAP,Angular', '62931f5cb3a0b0.46501713.png', '2022-03-09 11:41:52', '2022-03-18 10:25:25', '2022-05-30 14:41:40', NULL, '2022-05-30 14:41:40'),
-(32, 'yaqout', 'yaqout@yaqout.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'yaqout', 'salahat', 'f', '0781111710', 'React, .Net, C#, ABAP, SAP,Angular', 'a.png', '2022-03-23 17:27:15', '2022-03-23 17:27:15', '2022-05-30 14:42:01', NULL, '2022-05-30 14:42:01'),
-(33, 'fatima', 'fatima@fatima.com', '$2y$10$EqIz44Q7/QReQaiCkRQVku1kpGvpei.JX7UINtAq23wQaKLB/FO7a', 'fatima', 'mustafa', 'f', '0791526367', '', '62927095cfdd82.93591027.png', '2022-05-28 18:51:33', '2022-05-28 18:51:33', '2022-05-28 19:06:10', NULL, '2022-05-28 19:06:10');
+INSERT INTO `users` (`id`, `username`, `user_level`, `email`, `password`, `first_name`, `last_name`, `gender`, `headline`, `bio`, `profile_image`, `verified_at`, `created_at`, `updated_at`, `deleted_at`, `last_login_at`) VALUES
+(31, 'lina', 1, 'admin@admin.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'lina', 'hamdan', 'f', '0796104250', 'React, .Net, C#, ABAP, SAP,Angular', '62931f5cb3a0b0.46501713.png', '2022-03-09 11:41:52', '2022-03-18 10:25:25', '2022-06-09 18:45:56', NULL, '2022-06-09 18:45:56'),
+(32, 'yaqout', 0, 'yaqout@yaqout.com', '$2y$10$jhIOk4NVdBile/NwhAU9We/f0aoohx.cG9CizmIALRz0aCKJa5s6a', 'Yaqout', 'salahat', 'f', '0781111710', 'React, .Net, C#, ABAP, SAP,Angular', '6294f239d86d30.11525666.png', '2022-03-23 17:27:15', '2022-03-23 17:27:15', '2022-06-09 18:21:45', NULL, '2022-06-09 18:21:45'),
+(33, 'fatima', 0, 'fatima@fatima.com', '$2y$10$EqIz44Q7/QReQaiCkRQVku1kpGvpei.JX7UINtAq23wQaKLB/FO7a', 'fatima', 'mustafa', 'f', '0791526367', '', '62927095cfdd82.93591027.png', '2022-05-28 18:51:33', '2022-05-28 18:51:33', '2022-06-09 18:10:02', NULL, '2022-06-09 18:10:02');
 
 --
 -- Indexes for dumped tables
@@ -214,7 +218,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `auth_tokens`
 --
 ALTER TABLE `auth_tokens`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -232,7 +236,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
